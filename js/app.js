@@ -11,9 +11,19 @@ url = 'https://www.reddit.com/r/boardgames.json'
 
 request(url, function() {
     const data = JSON.parse(this.responseText);
-    const content = document.getElementById('content');
-    //const mappedTextData = 
-    let text = data.data.children[0].data.selftext;
-    let t = document.createTextNode(text)
-    content.appendChild(t);
-})
+    const contentContainer = document.getElementById('content_container');
+    data.data.children.forEach(element =>{
+        const title = element.data.title;
+        const selfTextData = element.data.selftext;
+        const author = element.data.author;
+        const permalink = element.data.permalink;
+        let contentBox = document.createElement('div');
+        contentBox.className='content_box';
+        contentContainer.appendChild(contentBox);
+        let t = document.createTextNode(selfTextData);
+        contentBox.appendChild(t);   
+    })
+   
+
+
+});
