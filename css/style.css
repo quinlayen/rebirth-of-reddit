@@ -6,19 +6,28 @@
   display: flex;
 }
 
+#options_bar{
+    height: 30%
+}
+
 .content_container {
   background-image: url('../assets/bg.jpg');
   background-size: cover;
 }
 
 .content_box {
-  background-color: blueviolet;
+  
   width: 300px;
   height: 350px;
   float: left;
+  overflow: hidden;
 }
 
 .image_box{
-    width: 200;
-    height: 200;
+    max-width: 70%;
+    height: auto;
+    max-height: 50%;
 }
+
+
+
