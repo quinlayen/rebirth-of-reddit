@@ -1,17 +1,24 @@
-*{
-    border: solid black;
-    box-sizing: border-box;
+* {
+  border: solid black;
+  box-sizing: border-box;
 }
-.wrapper{
-    display: flex;
+.wrapper {
+  display: flex;
 }
 
-content_container{
-    background-image: url(assets/bg.jpg);
-    background-size: cover;
+.content_container {
+  background-image: url('../assets/bg.jpg');
+  background-size: cover;
 }
-.content_box{
-    background-color: blueviolet;
-    width: 45%;
-    float: left;
+
+.content_box {
+  background-color: blueviolet;
+  width: 300px;
+  height: 350px;
+  float: left;
+}
+
+.image_box{
+    width: 200;
+    height: 200;
 }
