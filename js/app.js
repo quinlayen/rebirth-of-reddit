@@ -22,8 +22,10 @@ request(url, function() {
     const title = element.data.title;
     const selfTextData = element.data.selftext;
     const author = element.data.author;
-    const defaultImage = '../assets/Placeholder.jpg'
-    const image = (element.data.preview) ? element.data.preview.images[0].source.url : defaultImage;
+    const defaultImage = '../assets/Placeholder.jpg';
+    const image = element.data.preview
+      ? element.data.preview.images[0].source.url
+      : defaultImage;
     const permalink = element.data.permalink;
     //create dom elements to connect variables to
     //create contentBox which is the parent element for posts
@@ -36,8 +38,8 @@ request(url, function() {
     imageBox.className = 'image_box';
     imageBox.src = image;
     contentBox.appendChild(imageBox);
-    
-    //create title content 
+
+    //create title content
     const titleText = document.createElement('div');
     titleText.className = 'title_text';
     contentBox.appendChild(titleText);
@@ -45,7 +47,7 @@ request(url, function() {
 
     //create author content
     const authorText = document.createElement('div');
-    authorText.className='author_text';
+    authorText.className = 'author_text';
     contentBox.appendChild(authorText);
     authorText.innerHTML = author;
 
