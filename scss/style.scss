@@ -1,5 +1,7 @@
+@import 'partials/_colors.scss';
+@import 'partials/_mixins.scss';
+
 * {
-  
   box-sizing: border-box;
 }
 .wrapper {
@@ -10,22 +12,19 @@
   list-style: none;
   justify-content: center;
   align-content: space-around;
-  
 }
 .wrapper a {
-  
   text-decoration: none;
   display: block;
   padding: 1em;
   color: white;
 }
-.wrapper a:hover{
-  filter: 80%;
-  background:darken(deepskyblue, 2%);
+.wrapper a:hover {
+  background: darken(deepskyblue, 2%);
 }
-.title_bar{
 
-  background-image: url('../assets/header_bg.svg');
+.title_bar {
+  background-image: url('../../assets/header_bg.svg');
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -35,13 +34,11 @@
   margin-right: auto;
 }
 
-
-
 .content_container {
   display: flex;
   justify-content: space-around;
   flex-flow: row wrap;
-  background-image: url('../assets/bg.jpg');
+  background-image: url('../../assets/bg.jpg');
   background-size: cover;
 }
 
