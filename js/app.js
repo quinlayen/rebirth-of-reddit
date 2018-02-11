@@ -36,7 +36,7 @@ request(url, function() {
     imageBox.className = 'image_box';
     imageBox.src = image;
     contentBox.appendChild(imageBox);
-    console.log(moment())
+    
     //create title content 
     const titleText = document.createElement('div');
     titleText.className = 'title_text';
