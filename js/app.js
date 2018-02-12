@@ -22,6 +22,7 @@ request(url, function() {
     const title = element.data.title;
     const selfTextData = element.data.selftext;
     const author = element.data.author;
+    const submittedUtc = element.data.created_utc;
     const defaultImage = '../assets/Placeholder.jpg';
     const image = element.data.preview
       ? element.data.preview.images[0].source.url
@@ -45,11 +46,48 @@ request(url, function() {
     contentBox.appendChild(titleText);
     titleText.innerHTML = title;
 
+    //this function calculates the time when the post was submitted and displays it along with the author
+    const calculatetime = submittedUtc => {
+      const submittedDate = new Date(submittedUtc * 1000);
+      const todaysDate = new Date();
+      const howLongAgo = todaysDate - submittedDate;
+      //convert difference from posted and today's date into a readable time
+      let seconds = Math.floor(howLongAgo / 1000);
+      let minutes = Math.floor(seconds / 60);
+      let hours = Math.floor(minutes / 60);
+      let days = Math.floor(hours / 24);
+
+      //convert days into years with days left over
+      while (days > 365) {
+        let years = Math.floor(days / 365);
+        days = days % 365;
+        return `submitted ${years} years and ${days} days ago by ${author}`;
+      }
+      //convert hours into days with hours left over
+      if (hours > 24) {
+        days = Math.floor(hours / 24);
+        hours = hours % 24;
+        return `submitted ${days} days and ${hours} hours ago by ${author}`;
+      }
+      //convert minutes into hours with minutes left over
+      while (minutes > 60) {
+        hours = Math.floor(minutes / 60);
+        minutes = minutes % 60;
+        return `submitted ${hours} hours and ${minutes} minutes ago by ${author}`;
+      }
+      //convert seconds into minutes with seconds left over
+      while (seconds > 60) {
+        minutes = Math.floor(seconds / 60);
+        seconds = seconds % 60;
+        return `submitted ${minutes} hours and ${seconds} minutes ago by ${author}`;
+      }
+    };
+
     //create author content
-    const authorText = document.createElement('div');
-    authorText.className = 'author_text';
-    contentBox.appendChild(authorText);
-    authorText.innerHTML = author;
+    const authorTimeText = document.createElement('div');
+    authorTimeText.className = 'author_text';
+    contentBox.appendChild(authorTimeText);
+    authorTimeText.innerHTML = calculatetime(submittedUtc);
 
     //create text content of each post
     const postText = document.createElement('p');
@@ -58,43 +96,3 @@ request(url, function() {
     postText.innerHTML = selfTextData;
   }); //end of forEach loop
 });
-
-const calculatetime = postedUtc => {
-  const postedDate = new Date(postedUtc * 1000);
-  const todaysDate = new Date();
-  const howLongAgo = todaysDate - postedDate;
-
-  //convert difference from posted and today's date into a readable time
-  let seconds = Math.floor(howLongAgo / 1000);
-  let minutes = Math.floor(seconds / 60);
-  let hours = Math.floor(minutes / 60);
-  let days = Math.floor(hours / 24);
-
-  //convert days into years with days left over
-  while (days > 365) {
-    let years = Math.floor(days / 365);
-    days = days % 365;
-    return `submitted ${years} years and ${days} days ago`;
-  }
-  //convert hours into days with hours left over
-  if (hours > 24) {
-    days = Math.floor(hours / 24);
-    hours = hours % 24;
-    return `submitted ${days} days and ${hours} hours ago`;
-  }
-
-  //convert minutes into hours with minutes left over
-  while (minutes > 60) {
-    hours = Math.floor(minutes / 60);
-    minutes = minutes % 60;
-    return `submitted ${hours} hours and ${minutes} minutes ago`;
-  }
-
-  //convert seconds into minutes with seconds left over
-  while (seconds > 60) {
-    minutes = Math.floor(seconds / 60);
-    seconds = seconds % 60;
-    return `submitted ${minutes} hours and ${seconds} minutes ago`;
-  }
-};
-console.log(calculatetime(1517937191));
