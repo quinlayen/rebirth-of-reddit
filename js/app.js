@@ -61,25 +61,25 @@ request(url, function() {
       while (days > 365) {
         let years = Math.floor(days / 365);
         days = days % 365;
-        return `submitted ${years} years and ${days} days ago by ${author}`;
+        return `Submitted ${years} years and ${days} days ago by ${author}`;
       }
       //convert hours into days with hours left over
       if (hours > 24) {
         days = Math.floor(hours / 24);
         hours = hours % 24;
-        return `submitted ${days} days and ${hours} hours ago by ${author}`;
+        return `Submitted ${days} days and ${hours} hours ago by ${author}`;
       }
       //convert minutes into hours with minutes left over
       while (minutes > 60) {
         hours = Math.floor(minutes / 60);
         minutes = minutes % 60;
-        return `submitted ${hours} hours and ${minutes} minutes ago by ${author}`;
+        return `Submitted ${hours} hours and ${minutes} minutes ago by ${author}`;
       }
       //convert seconds into minutes with seconds left over
       while (seconds > 60) {
         minutes = Math.floor(seconds / 60);
         seconds = seconds % 60;
-        return `submitted ${minutes} hours and ${seconds} minutes ago by ${author}`;
+        return `Submitted ${minutes} hours and ${seconds} minutes ago by ${author}`;
       }
     };
 
