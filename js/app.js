@@ -56,5 +56,45 @@ request(url, function() {
     postText.className = 'post_text';
     contentBox.appendChild(postText);
     postText.innerHTML = selfTextData;
-  });
+  }); //end of forEach loop
 });
+
+const calculatetime = postedUtc => {
+  const postedDate = new Date(postedUtc * 1000);
+  const todaysDate = new Date();
+  const howLongAgo = todaysDate - postedDate;
+
+  //convert difference from posted and today's date into a readable time
+  let seconds = Math.floor(howLongAgo / 1000);
+  let minutes = Math.floor(seconds / 60);
+  let hours = Math.floor(minutes / 60);
+  let days = Math.floor(hours / 24);
+
+  //convert days into years with days left over
+  while (days > 365) {
+    let years = Math.floor(days / 365);
+    days = days % 365;
+    return `submitted ${years} years and ${days} days ago`;
+  }
+  //convert hours into days with hours left over
+  if (hours > 24) {
+    days = Math.floor(hours / 24);
+    hours = hours % 24;
+    return `submitted ${days} days and ${hours} hours ago`;
+  }
+
+  //convert minutes into hours with minutes left over
+  while (minutes > 60) {
+    hours = Math.floor(minutes / 60);
+    minutes = minutes % 60;
+    return `submitted ${hours} hours and ${minutes} minutes ago`;
+  }
+
+  //convert seconds into minutes with seconds left over
+  while (seconds > 60) {
+    minutes = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    return `submitted ${minutes} hours and ${seconds} minutes ago`;
+  }
+};
+console.log(calculatetime(1517937191));

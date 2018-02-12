@@ -3,6 +3,7 @@
 
 * {
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .wrapper {
   background: deepskyblue;
@@ -15,7 +16,7 @@
 }
 .wrapper a {
   text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
+
   display: block;
   padding: 1em;
   color: white;
@@ -47,8 +48,11 @@
   background-color: white;
   width: 300px;
   height: 350px;
+  margin: 20px;
   overflow: hidden;
-  margin: auto;
+  & :hover {
+    @include onHover;
+  }
 }
 
 .image_box {
