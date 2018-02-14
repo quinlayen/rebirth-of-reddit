@@ -96,3 +96,9 @@ request(url, function() {
     postText.innerHTML = selfTextData;
   }); //end of forEach loop
 });
+
+// const myBoards = document.getElementById('my_boards');
+// myBoards.addEventListener(
+//   'click',
+//   request('https://www.reddit.com/r/reactjs.json')
+// );

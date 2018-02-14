@@ -43,8 +43,9 @@
   height: 353px;
   margin: 20px;
   overflow-y: hidden; }
-  .content_box :hover {
-    border: solid deepskyblue; }
+
+.content_box:hover {
+  border: solid deepskyblue; }
 
 .image_box {
   display: block;

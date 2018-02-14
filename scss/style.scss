@@ -50,11 +50,10 @@
   height: 353px;
   margin: 20px;
   overflow-y: hidden;
-  & :hover {
-    @include onHover;
-  }
 }
-
+.content_box:hover {
+  @include onHover();
+}
 .image_box {
   display: block;
   max-width: 70%;
