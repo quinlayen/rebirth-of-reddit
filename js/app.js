@@ -14,6 +14,9 @@ Dynamically create and populate posts into a group of contentBox.
 Each content box should include a thumbnail (if available), title, author, and caption or 
 shortened version of posts. When the box is clicked on it should expand showing the entire post.
 */
+const mainRequest = function(url) {
+  request();
+};
 request(url, function() {
   const data = JSON.parse(this.responseText);
   const contentContainer = document.getElementById('content_container');
@@ -97,8 +100,10 @@ request(url, function() {
   }); //end of forEach loop
 });
 
-// const myBoards = document.getElementById('my_boards');
-// myBoards.addEventListener(
-//   'click',
-//   request('https://www.reddit.com/r/reactjs.json')
-// );
+window.onload = mainRequest(url);
+
+const myBoards = document.getElementById('my_boards');
+myBoards.addEventListener(
+  'click',
+  request('https://www.reddit.com/r/reactjs.json')
+);
