@@ -29,7 +29,7 @@ const requestListener = url => {
       const selfTextData = element.data.selftext;
       const author = element.data.author;
       const submittedUtc = element.data.created_utc;
-      const defaultImage = 'http://placezombie.com/300x200';
+      const defaultImage = '../../assets/no-photo-21.jpg';
       const image = element.data.preview
         ? element.data.preview.images[0].source.url.replace('&amp;', '&')
         : defaultImage;
@@ -104,6 +104,7 @@ const requestListener = url => {
 };
 requestListener(url);
 
+//deletes and creates new nodes when calling a new page
 const deleteContentContainer = () => {
   const mainContainer = document.getElementById('main_container');
   contentContainer = document.getElementById('content_container');
@@ -117,7 +118,11 @@ const createContentContainer = () => {
   mainContainer = document.getElementById('main_container');
   mainContainer.appendChild(contentContainer);
 };
+//search button
+const searchField = document.getElementById('search_field');
+const searchButton = document.getElementById('search_button');
 
+//button operations
 const getApp = document.getElementById('get_app');
 getApp.addEventListener('click', function() {
   deleteContentContainer();

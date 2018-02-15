@@ -12,7 +12,7 @@
   flex-flow: row wrap;
   list-style: none;
   justify-content: center;
-  align-content: space-around;
+  align-content: space-between;
 }
 .wrapper a {
   text-decoration: none;
@@ -20,12 +20,18 @@
   padding: 1em;
   color: white;
 }
+.wrapper a:nth-child(3) {
+  flex: 1;
+}
 .wrapper a:hover {
   background: darken(deepskyblue, 2%);
 }
 .wrapper form {
-  display: block;
-  margin-left: 100px;
+  align-self: center;
+
+  & input {
+    width: 200px;
+  }
 }
 .title_bar {
   background-image: url('../../assets/header_bg.svg');
