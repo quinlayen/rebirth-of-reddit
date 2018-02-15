@@ -10,7 +10,7 @@ const request = (url, callback) => {
   oReq.send();
 };
 
-url = 'https://www.reddit.com/r/boardgames.json';
+let url = 'https://www.reddit.com/r/boardgames.json';
 
 /*
 Dynamically create and populate posts into a group of contentBox.
@@ -21,10 +21,19 @@ shortened version of posts. When the box is clicked on it should expand showing 
 const requestListener = url => {
   request(url, function() {
     const data = JSON.parse(this.responseText);
-    console.log(this);
     const contentContainer = document.getElementById('content_container');
+    if (url === 'https://www.reddit.com/r/all.json') {
+      const subredditArray = data.data.children;
+
+      const getRandomElement =
+        subredditArray[Math.floor(Math.random() * subredditArray.length)];
+
+      const getPrefix = getRandomElement.data.subreddit_name_prefixed;
+      requestListener(`https://www.reddit.com/${getPrefix}/`);
+    }
     data.data.children.forEach(element => {
       //variables for data collection
+
       const title = element.data.title;
       const selfTextData = element.data.selftext;
       const author = element.data.author;
@@ -116,10 +125,12 @@ const createContentContainer = () => {
   contentContainer.id = 'content_container';
   contentContainer.className = 'content_container';
   mainContainer = document.getElementById('main_container');
+  const optionBar = document.getElementById('options_bar');
+  const footter = document.getElementById('footer');
   mainContainer.appendChild(contentContainer);
 };
-//search button
-const searchField = document.getElementById('search_field');
+//search button and field
+const searchField = document.getElementById('search_field').value;
 const searchButton = document.getElementById('search_button');
 
 //button operations
@@ -139,5 +150,5 @@ myBoards.addEventListener('click', function() {
 
 const random = document.getElementById('random');
 random.addEventListener('click', function() {
-  requestListener('https://www.reddit.com/r/random.json');
+  requestListener('https://www.reddit.com/r/all.json');
 });
