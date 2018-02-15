@@ -3,11 +3,14 @@ console.log('sanity check');
 const request = (url, callback) => {
   const oReq = new XMLHttpRequest();
   oReq.addEventListener('load', callback);
+  oReq.addEventListener('error', e => {
+    console.log(e);
+  });
   oReq.open('GET', url);
   oReq.send();
 };
 
-url = 'https://www.reddit.com/r/boardgames.json';
+let url = 'https://www.reddit.com/r/boardgames.json';
 
 /*
 Dynamically create and populate posts into a group of contentBox.
@@ -19,15 +22,25 @@ const requestListener = url => {
   request(url, function() {
     const data = JSON.parse(this.responseText);
     const contentContainer = document.getElementById('content_container');
+    if (url === 'https://www.reddit.com/r/all.json') {
+      const subredditArray = data.data.children;
+
+      const getRandomElement =
+        subredditArray[Math.floor(Math.random() * subredditArray.length)];
+
+      const getPrefix = getRandomElement.data.subreddit_name_prefixed;
+      requestListener(`https://www.reddit.com/${getPrefix}/`);
+    }
     data.data.children.forEach(element => {
       //variables for data collection
+
       const title = element.data.title;
       const selfTextData = element.data.selftext;
       const author = element.data.author;
       const submittedUtc = element.data.created_utc;
-      const defaultImage = '../../assets/Placeholder.jpg';
+      const defaultImage = '../../assets/no-photo-21.jpg';
       const image = element.data.preview
-        ? element.data.preview.images[0].source.url
+        ? element.data.preview.images[0].source.url.replace('&amp;', '&')
         : defaultImage;
       //create dom elements to connect variables to
       //create contentBox which is the parent element for posts
@@ -100,17 +113,42 @@ const requestListener = url => {
 };
 requestListener(url);
 
+//deletes and creates new nodes when calling a new page
+const deleteContentContainer = () => {
+  const mainContainer = document.getElementById('main_container');
+  contentContainer = document.getElementById('content_container');
+  mainContainer.removeChild(contentContainer);
+};
+
+const createContentContainer = () => {
+  const contentContainer = document.createElement('div');
+  contentContainer.id = 'content_container';
+  contentContainer.className = 'content_container';
+  mainContainer = document.getElementById('main_container');
+  const optionBar = document.getElementById('options_bar');
+  const footter = document.getElementById('footer');
+  mainContainer.appendChild(contentContainer);
+};
+//search button and field
+const searchField = document.getElementById('search_field').value;
+const searchButton = document.getElementById('search_button');
+
+//button operations
 const getApp = document.getElementById('get_app');
 getApp.addEventListener('click', function() {
+  deleteContentContainer();
+  createContentContainer();
   requestListener('https://www.reddit.com/r/reactjs.json');
 });
 
 const myBoards = document.getElementById('my_boards');
 myBoards.addEventListener('click', function() {
+  deleteContentContainer();
+  createContentContainer();
   requestListener('https://www.reddit.com/r/boardgames.json');
 });
 
-const random = document.getElementById('get_app');
+const random = document.getElementById('random');
 random.addEventListener('click', function() {
-  requestListener('https://www.reddit.com/r/random.json');
+  requestListener('https://www.reddit.com/r/all.json');
 });
