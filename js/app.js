@@ -29,7 +29,7 @@ const requestListener = url => {
       const selfTextData = element.data.selftext;
       const author = element.data.author;
       const submittedUtc = element.data.created_utc;
-      const defaultImage = '../../assets/Placeholder.jpg';
+      const defaultImage = 'http://placezombie.com/300x200';
       const image = element.data.preview
         ? element.data.preview.images[0].source.url.replace('&amp;', '&')
         : defaultImage;
@@ -113,6 +113,7 @@ const deleteContentContainer = () => {
 const createContentContainer = () => {
   const contentContainer = document.createElement('div');
   contentContainer.id = 'content_container';
+  contentContainer.className = 'content_container';
   mainContainer = document.getElementById('main_container');
   mainContainer.appendChild(contentContainer);
 };
@@ -126,6 +127,8 @@ getApp.addEventListener('click', function() {
 
 const myBoards = document.getElementById('my_boards');
 myBoards.addEventListener('click', function() {
+  deleteContentContainer();
+  createContentContainer();
   requestListener('https://www.reddit.com/r/boardgames.json');
 });
 
