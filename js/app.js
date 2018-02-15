@@ -18,6 +18,7 @@ shortened version of posts. When the box is clicked on it should expand showing 
 const requestListener = url => {
   request(url, function() {
     const data = JSON.parse(this.responseText);
+    console.log(data);
     const contentContainer = document.getElementById('content_container');
     data.data.children.forEach(element => {
       //variables for data collection
@@ -27,7 +28,7 @@ const requestListener = url => {
       const submittedUtc = element.data.created_utc;
       const defaultImage = '../../assets/Placeholder.jpg';
       const image = element.data.preview
-        ? element.data.preview.images[0].source.url
+        ? element.data.preview.images[0].source.url.replace('&amp;', '&')
         : defaultImage;
       //create dom elements to connect variables to
       //create contentBox which is the parent element for posts
@@ -110,7 +111,7 @@ myBoards.addEventListener('click', function() {
   requestListener('https://www.reddit.com/r/boardgames.json');
 });
 
-const random = document.getElementById('get_app');
+const random = document.getElementById('random');
 random.addEventListener('click', function() {
   requestListener('https://www.reddit.com/r/random.json');
 });
