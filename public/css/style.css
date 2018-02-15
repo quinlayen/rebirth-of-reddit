@@ -20,6 +20,10 @@
 .wrapper a:hover {
   background: #00b7f5; }
 
+.wrapper form {
+  display: block;
+  margin-left: 100px; }
+
 .title_bar {
   background-image: url("../../assets/header_bg.svg");
   background-repeat: no-repeat;
@@ -40,7 +44,7 @@
 .content_box {
   background-color: white;
   width: 300px;
-  height: 353px;
+  height: 500px;
   margin: 20px;
   overflow-y: hidden; }
 

@@ -3,6 +3,9 @@ console.log('sanity check');
 const request = (url, callback) => {
   const oReq = new XMLHttpRequest();
   oReq.addEventListener('load', callback);
+  oReq.addEventListener('error', e => {
+    console.log(e);
+  });
   oReq.open('GET', url);
   oReq.send();
 };
@@ -18,7 +21,7 @@ shortened version of posts. When the box is clicked on it should expand showing 
 const requestListener = url => {
   request(url, function() {
     const data = JSON.parse(this.responseText);
-    console.log(data);
+    console.log(this);
     const contentContainer = document.getElementById('content_container');
     data.data.children.forEach(element => {
       //variables for data collection
@@ -101,8 +104,23 @@ const requestListener = url => {
 };
 requestListener(url);
 
+const deleteContentContainer = () => {
+  const mainContainer = document.getElementById('main_container');
+  contentContainer = document.getElementById('content_container');
+  mainContainer.removeChild(contentContainer);
+};
+
+const createContentContainer = () => {
+  const contentContainer = document.createElement('div');
+  contentContainer.id = 'content_container';
+  mainContainer = document.getElementById('main_container');
+  mainContainer.appendChild(contentContainer);
+};
+
 const getApp = document.getElementById('get_app');
 getApp.addEventListener('click', function() {
+  deleteContentContainer();
+  createContentContainer();
   requestListener('https://www.reddit.com/r/reactjs.json');
 });
 
